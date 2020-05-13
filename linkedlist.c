@@ -52,6 +52,34 @@ Status add_to_start(List_ptr list, Element element)
   return Success;
 }
 
+Element remove_from_end(List_ptr list)
+{
+  if(list->length == 0) return NULL;
+  if (list->length == 1) 
+  {
+    Element element = list->first;
+    list->first = NULL;
+    list->last = NULL;
+    list->length = 0;
+    return element;
+  }
+  Node_ptr p_walk = list->first;
+  Element removed_element;
+  
+  while (p_walk->next != NULL)
+  {
+    if (p_walk->next->next == NULL)
+    {
+      list->last = p_walk;
+      removed_element = p_walk->next;
+      p_walk->next = NULL;
+      list->length--;
+    }
+    p_walk = p_walk->next;
+  }
+  return removed_element;
+}
+
 Element remove_from_start(List_ptr list)
 {
   if (list->length == 0) return NULL;
