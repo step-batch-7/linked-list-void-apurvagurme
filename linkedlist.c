@@ -1,6 +1,6 @@
 #include"linkedlist.h"
 
-Node_ptr create_node(value)
+Node_ptr create_node(void)
 {
   Node_ptr new_node = malloc(sizeof(Node));
   new_node->element = malloc(sizeof(Element));
@@ -15,6 +15,24 @@ List_ptr create_list(void)
   list->last = NULL;
   list->length = 0;
   return list;
+}
+
+Status add_to_list(List_ptr list, Element element)
+{
+  Node_ptr new_node = create_node();
+  if(new_node == NULL) return Failure;
+
+  if (list->first == NULL)
+  {
+    list->first = new_node;
+  } 
+  else 
+  {
+    list->last->next = new_node;
+  }
+  list->last = new_node;
+  list->length++;
+  return Success;
 }
 
 Status clear_list(List_ptr list)
