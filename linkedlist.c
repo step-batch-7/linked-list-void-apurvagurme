@@ -52,6 +52,15 @@ Status add_to_start(List_ptr list, Element element)
   return Success;
 }
 
+Element remove_from_start(List_ptr list)
+{
+  if (list->length == 0) return Failure;
+  Node *first_node = list->first;
+  list->first = first_node->next;
+  list->length--;
+  return first_node->element;
+}
+
 List_ptr reverse(List_ptr list)
 {
   List_ptr reverse_list = create_list();
