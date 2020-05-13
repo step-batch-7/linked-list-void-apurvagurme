@@ -52,9 +52,11 @@ Status add_to_start(List_ptr list, Element element)
   return Success;
 }
 
+
 Element remove_from_start(List_ptr list)
 {
-  if (list->length == 0) return Failure;
+  if (list->length == 0) return NULL;
+  if (list->length == 1) clear_list(list);
   Node *first_node = list->first;
   list->first = first_node->next;
   list->length--;
@@ -69,6 +71,7 @@ List_ptr reverse(List_ptr list)
   while (p_walk != NULL)
   {
     add_to_start(reverse_list, p_walk->element);
+    p_walk = p_walk->next;
   }
   return reverse_list;
 }
