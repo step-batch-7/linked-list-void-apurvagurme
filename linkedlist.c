@@ -52,11 +52,13 @@ Status add_to_start(List_ptr list, Element element)
   return Success;
 }
 
-
 Element remove_from_start(List_ptr list)
 {
   if (list->length == 0) return NULL;
-  if (list->length == 1) clear_list(list);
+  if (list->length == 1) 
+  {
+    return clear_list(list);
+  }
   Node *first_node = list->first;
   list->first = first_node->next;
   list->length--;
