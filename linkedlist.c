@@ -57,7 +57,7 @@ Element remove_from_end(List_ptr list)
   if(list->length == 0) return NULL;
   if (list->length == 1) 
   {
-    Element element = list->first;
+    Element element = list->first->element;
     list->first = NULL;
     list->last = NULL;
     list->length = 0;
