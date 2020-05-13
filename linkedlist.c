@@ -52,6 +52,23 @@ Status add_to_start(List_ptr list, Element element)
   return Success;
 }
 
+Element remove_from_start(List_ptr list)
+{
+  if (list->length == 0) return NULL;
+  if (list->length == 1) 
+  {
+    Element element = list->first->element;
+    list->first = NULL;
+    list->last = NULL;
+    list->length = 0;
+    return element;
+  }
+  Node *first_node = list->first;
+  list->first = first_node->next;
+  list->length--;
+  return first_node->element;
+}
+
 Element remove_from_end(List_ptr list)
 {
   if(list->length == 0) return NULL;
@@ -80,21 +97,28 @@ Element remove_from_end(List_ptr list)
   return removed_element;
 }
 
-Element remove_from_start(List_ptr list)
+Status add_unique(List_ptr list, Element element, Matcher matcher)
 {
-  if (list->length == 0) return NULL;
-  if (list->length == 1) 
+  Node_ptr new_node = create_node();
+  Node_ptr p_walk = list->first;
+  if (list->first == NULL)
   {
-    Element element = list->first->element;
-    list->first = NULL;
-    list->last = NULL;
-    list->length = 0;
-    return element;
+    list->first = new_node;
+    list->last = new_node;
+    list->length++;
+    return Success;
   }
-  Node *first_node = list->first;
-  list->first = first_node->next;
-  list->length--;
-  return first_node->element;
+  while (p_walk != NULL && matcher(p_walk->element, element) == Success)
+  {
+    if (p_walk->next == NULL)
+    {
+      p_walk->next = new_node;
+      list->length++;
+      return Success;
+    }
+    p_walk = p_walk->next;
+  }
+  return Failure;
 }
 
 List_ptr reverse(List_ptr list)
