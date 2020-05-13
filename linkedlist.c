@@ -95,7 +95,7 @@ Status insert_at(List_ptr list, Element element, int position)
 
 List_ptr reverse(List_ptr list)
 {
-  if(list->first == NULL) return Failure;
+  if(list->length == 0) return Failure;
   List_ptr reverse_list = create_list();
   Node_ptr p_walk = list->first;
   while (p_walk != NULL)
@@ -103,6 +103,15 @@ List_ptr reverse(List_ptr list)
     add_to_start(reverse_list, p_walk->element);
   }
   return Success;
+}
+
+Element remove_from_start(List_ptr list)
+{
+  if (list->length == 0) return Failure;
+  Node *first_node = list->first;
+  list->first = first_node->next;
+  list->length--;
+  return first_node->element;
 }
 
 Status clear_list(List_ptr list)
