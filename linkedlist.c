@@ -20,8 +20,8 @@ List_ptr create_list(void)
 Status add_to_list(List_ptr list, Element element)
 {
   Node_ptr new_node = create_node();
-  new_node->element = element;
   if(new_node == NULL) return Failure;
+  new_node->element = element;
 
   if (list->first == NULL)
   {
