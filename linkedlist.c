@@ -108,7 +108,7 @@ Status add_unique(List_ptr list, Element element, Matcher matcher)
     list->length++;
     return Success;
   }
-  while (p_walk != NULL && matcher(p_walk->element, element) == Success)
+  while (p_walk != NULL && matcher(p_walk->element, element) == Failure)
   {
     if (p_walk->next == NULL)
     {
