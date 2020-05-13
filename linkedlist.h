@@ -28,12 +28,20 @@ typedef Node *Node_ptr;
 
 typedef struct linklist
 {
-  Node *first;
-  Node *last;
+  Node_ptr first;
+  Node_ptr last;
   int length;
 } LinkedList;
 
 typedef LinkedList *List_ptr;
+
+typedef struct prev_curr
+{
+  Node_ptr previous;
+  Node_ptr current;
+} Prev_curr_pair;
+
+typedef Prev_curr_pair *Prev_curr_ptr;
 
 typedef Element (*Mapper)(Element);
 typedef Status (*Predicate)(Element);
