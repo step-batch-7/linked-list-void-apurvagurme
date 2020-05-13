@@ -54,8 +54,8 @@ Status add_to_start(List_ptr list, Element element)
 
 List_ptr reverse(List_ptr list)
 {
-  if(list->length == 0) return Failure;
   List_ptr reverse_list = create_list();
+  if(list->length == 0) return reverse_list;
   Node_ptr p_walk = list->first;
   while (p_walk != NULL)
   {
