@@ -65,13 +65,13 @@ Element remove_from_end(List_ptr list)
   }
   Node_ptr p_walk = list->first;
   Element removed_element;
-  
+
   while (p_walk->next != NULL)
   {
     if (p_walk->next->next == NULL)
     {
       list->last = p_walk;
-      removed_element = p_walk->next;
+      removed_element = p_walk->next->element;
       p_walk->next = NULL;
       list->length--;
     }
