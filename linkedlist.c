@@ -61,7 +61,7 @@ List_ptr reverse(List_ptr list)
   {
     add_to_start(reverse_list, p_walk->element);
   }
-  return Success;
+  return reverse_list;
 }
 
 Status clear_list(List_ptr list)
