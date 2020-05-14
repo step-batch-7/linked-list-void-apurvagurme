@@ -114,6 +114,7 @@ Status add_unique(List_ptr list, Element element, Matcher matcher)
     if (p_walk->next == NULL)
     {
       p_walk->next = new_node;
+      list->last = new_node;
       list->length++;
       return Success;
     }
