@@ -92,6 +92,11 @@ Element remove_from_end(List_ptr list)
     }
     p_walk = p_walk->next;
   }
+  if (list->length == 0)
+  {
+    list->first = NULL;
+    list->last = NULL;
+  }
   return removed_element;
 }
 
