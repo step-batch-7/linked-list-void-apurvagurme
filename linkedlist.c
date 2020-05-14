@@ -137,7 +137,7 @@ Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
 {
   Node_ptr p_walk = list->first;
   int position = 0;
-  Status removed_element = NULL;
+  Element removed_element = NULL;
   while (p_walk != NULL)
   {
     if (matcher(p_walk->element,element) == Success) 
