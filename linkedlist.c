@@ -163,6 +163,11 @@ Element remove_at(List_ptr list, int position)
   Element removed_element = p_walk->next->element;
   p_walk->next = next;
   list->length--;
+  if (list->length == 0)
+  {
+    list->first = NULL;
+    list->last = NULL;
+  }
   return removed_element;
 }
 
