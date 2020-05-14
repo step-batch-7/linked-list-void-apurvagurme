@@ -72,26 +72,24 @@ Element remove_from_end(List_ptr list)
   if(list->length == 0) return NULL;
   if (list->length == 1) 
   {
-    Element element = list->first->element;
-    list->first = NULL;
-    list->last = NULL;
-    list->length = 0;
-    return element;
+    return remove_from_start(list);
   }
   Node_ptr p_walk = list->first;
-  Element removed_element;
-
-  while (p_walk->next != NULL)
+  Prev_curr_ptr prev_curr = malloc(sizeof(Prev_curr_ptr));
+  prev_curr->current = list->first;
+  prev_curr->previous = list->first;
+  
+  while (p_walk != NULL)
   {
-    if (p_walk->next->next == NULL)
-    {
-      list->last = p_walk;
-      removed_element = p_walk->next->element;
-      p_walk->next = NULL;
-      list->length--;
-    }
+    prev_curr->previous = prev_curr->current;
+    prev_curr->current = prev_curr->current->next;
     p_walk = p_walk->next;
   }
+
+  Element removed_element = prev_curr->current->element;
+  prev_curr->previous->next = NULL; 
+  list->last = prev_curr->previous;
+  list->length--;
   if (list->length == 0)
   {
     list->first = NULL;
@@ -280,15 +278,15 @@ List_ptr filter(List_ptr list, Predicate predicate)
   return filtered_list;
 }
 
-Element reduce(List_ptr list, Element element, Reducer reducer)
+Element reduce(List_ptr list, Element init, Reducer reducer)
 {
   Node_ptr p_walk = list->first;
   while (p_walk != NULL)
   {
-    element = reducer(element, p_walk->element);
+    init = reducer(init, p_walk->element);
     p_walk = p_walk->next;
   }
-  return element;
+  return init;
 }
 
 void forEach(List_ptr list, ElementProcessor processor)
