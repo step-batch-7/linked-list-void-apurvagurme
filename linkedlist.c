@@ -283,13 +283,12 @@ List_ptr filter(List_ptr list, Predicate predicate)
 Element reduce(List_ptr list, Element element, Reducer reducer)
 {
   Node_ptr p_walk = list->first;
-  Element init = NULL;
   while (p_walk != NULL)
   {
-    init = reducer(init, p_walk->element);
+    element = reducer(element, p_walk->element);
     p_walk = p_walk->next;
   }
-  return init;
+  return element;
 }
 
 void forEach(List_ptr list, ElementProcessor processor)
