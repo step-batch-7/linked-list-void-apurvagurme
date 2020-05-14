@@ -135,6 +135,24 @@ Element remove_at(List_ptr list, int position)
   return removed_element;
 }
 
+Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
+{
+  Node_ptr p_walk = list->first;
+  int position = 0;
+  Status removed_element = NULL;
+  while (p_walk != NULL)
+  {
+    if (matcher(p_walk->element,element) == Success) 
+    {
+      removed_element = remove_at(list, position);
+      return removed_element;
+    }
+    p_walk = p_walk->next;
+    position++;
+  }
+  return removed_element;
+}
+
 Status add_unique(List_ptr list, Element element, Matcher matcher)
 {
   Node_ptr new_node = create_node();
