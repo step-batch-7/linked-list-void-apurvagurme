@@ -133,7 +133,7 @@ Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
   Status status = Failure;
   while (p_walk != NULL)
   {
-    if (p_walk->element == element) 
+    if (matcher(p_walk->element,element)) 
     {
       return remove_at(list, position);
     }
