@@ -292,6 +292,16 @@ Element reduce(List_ptr list, Element element, Reducer reducer)
   return init;
 }
 
+void forEach(List_ptr list, ElementProcessor processor)
+{
+  Node_ptr p_walk = list->first;
+  while (p_walk != NULL)
+  {
+    processor(p_walk->element);
+    p_walk = p_walk->next;
+  }
+}
+
 Status clear_list(List_ptr list)
 {
   if (list->length == 0) return Failure;
