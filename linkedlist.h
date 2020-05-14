@@ -49,7 +49,7 @@ typedef Element (*Reducer)(Element, Element);
 typedef void (*ElementProcessor)(Element);
 typedef Status (*Matcher)(Element, Element);
 
-Node_ptr create_node(void);
+Node_ptr create_node(Element);
 List_ptr create_list(void);
 
 Status add_to_list(List_ptr, Element);

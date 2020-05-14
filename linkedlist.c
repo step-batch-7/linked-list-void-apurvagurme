@@ -1,9 +1,9 @@
 #include"linkedlist.h"
 
-Node_ptr create_node(void)
+Node_ptr create_node(Element element)
 {
   Node_ptr new_node = malloc(sizeof(Node));
-  new_node->element = malloc(sizeof(Element));
+  new_node->element = element;
   new_node->next = NULL;
   return new_node;
 }
@@ -19,9 +19,8 @@ List_ptr create_list(void)
 
 Status add_to_list(List_ptr list, Element element)
 {
-  Node_ptr new_node = create_node();
+  Node_ptr new_node = create_node(element);
   if(new_node == NULL) return Failure;
-  new_node->element = element;
 
   if (list->first == NULL)
   {
@@ -38,9 +37,8 @@ Status add_to_list(List_ptr list, Element element)
 
 Status add_to_start(List_ptr list, Element element)
 {
-  Node_ptr new_node = create_node();
+  Node_ptr new_node = create_node(element);
   if(new_node == NULL) return Failure;
-  new_node->element = element;
 
   if(list->first == NULL)
   {
@@ -153,10 +151,28 @@ Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
   return removed_element;
 }
 
+List_ptr remove_all_occurrences(List_ptr list, Element element, Matcher matcher)
+{
+  Node_ptr p_walk = list->first;
+  int position = 0;
+  List_ptr removed_elements_list = create_list();
+  while (p_walk != NULL)
+  {
+    if (matcher(p_walk->element, element) == Success)
+    {
+      remove_at(list, position);
+      add_to_list(removed_elements_list, element);
+      position--;
+    }
+    p_walk = p_walk->next;
+    position++;
+  }
+  return removed_elements_list;
+}
+
 Status add_unique(List_ptr list, Element element, Matcher matcher)
 {
-  Node_ptr new_node = create_node();
-  new_node->element = element;
+  Node_ptr new_node = create_node(element);
   Node_ptr p_walk = list->first;
   if (list->first == NULL)
   {
