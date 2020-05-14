@@ -104,6 +104,39 @@ Status is_valid_position(int position, int count)
   return Success;
 }
 
+Status insert_at(List_ptr list, Element element, int position)
+{ 
+  int valid = is_valid_position(position, list->length);
+  if (!valid) return Failure;
+  
+  if (position == 0)
+  {
+    return add_to_start(list, element); 
+  }
+  if (list->length == position)
+  {
+    return add_to_list(list, element);
+  }
+  
+  Node_ptr new_node = create_node(element);
+  if(new_node == NULL) return Failure;
+
+  Prev_curr_ptr prev_curr = malloc(sizeof(Prev_curr_ptr));
+  prev_curr->current = list->first;
+  prev_curr->previous = list->first;
+  int count = 0;  
+  while (count < position)
+  {
+    prev_curr->previous = prev_curr->current;
+    prev_curr->current = prev_curr->current->next;
+    count++;
+  }
+  new_node->next = prev_curr->current;
+  prev_curr->previous->next = new_node;
+  list->length++;
+  return Success;
+}
+
 Element remove_at(List_ptr list, int position)
 {
   int valid = is_valid_position(position, list->length - 1);
