@@ -280,6 +280,18 @@ List_ptr filter(List_ptr list, Predicate predicate)
   return filtered_list;
 }
 
+Element reduce(List_ptr list, Element element, Reducer reducer)
+{
+  Node_ptr p_walk = list->first;
+  Element init = NULL;
+  while (p_walk != NULL)
+  {
+    init = reducer(p_walk->element, init);
+    p_walk = p_walk->next;
+  }
+  return init;
+}
+
 Status clear_list(List_ptr list)
 {
   if (list->length == 0) return Failure;
