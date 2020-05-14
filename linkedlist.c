@@ -100,6 +100,7 @@ Element remove_from_end(List_ptr list)
 Status add_unique(List_ptr list, Element element, Matcher matcher)
 {
   Node_ptr new_node = create_node();
+  new_node->element = element;
   Node_ptr p_walk = list->first;
   if (list->first == NULL)
   {
