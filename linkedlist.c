@@ -264,6 +264,22 @@ List_ptr map(List_ptr list, Mapper mapper)
   return mapped_list;
 }
 
+List_ptr filter(List_ptr list, Predicate predicate)
+{
+  List_ptr filtered_list = create_list();
+  Node_ptr p_walk = list->first;
+  while (p_walk != NULL)
+  {
+    Status status = predicate(p_walk->element);
+    if (status == Success)
+    {
+      add_to_list(filtered_list, p_walk->element);    
+    }
+    p_walk = p_walk->next;
+  }
+  return filtered_list;
+}
+
 Status clear_list(List_ptr list)
 {
   if (list->length == 0) return Failure;
