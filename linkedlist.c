@@ -97,6 +97,35 @@ Element remove_from_end(List_ptr list)
   return removed_element;
 }
 
+Element remove_at(List_ptr list, int position)
+{
+  int valid = is_valid_position(position, list->length - 1);
+  if (!valid) return NULL;
+  if (position == 0)
+  {
+    return remove_from_start(list);
+  }
+
+  if (position == list->length - 1)
+  {
+    return remove_from_end(list);
+  }
+  
+  Node_ptr p_walk = list->first;
+  int count = 0;
+  while (count < position - 1)
+  {
+    p_walk = p_walk->next;
+    count++;
+  }
+
+  Node_ptr next = p_walk->next->next;
+  Element removed_element = p_walk->next->element;
+  p_walk->next = next;
+  list->length--;
+  return removed_element;
+}
+
 Status add_unique(List_ptr list, Element element, Matcher matcher)
 {
   Node_ptr new_node = create_node();
