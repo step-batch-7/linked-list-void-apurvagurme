@@ -97,6 +97,15 @@ Element remove_from_end(List_ptr list)
   return removed_element;
 }
 
+Status is_valid_position(int position, int count)
+{
+  if (position > count || position < 0)
+  {
+    return Failure;
+  }
+  return Success;
+}
+
 Element remove_at(List_ptr list, int position)
 {
   int valid = is_valid_position(position, list->length - 1);
@@ -124,23 +133,6 @@ Element remove_at(List_ptr list, int position)
   p_walk->next = next;
   list->length--;
   return removed_element;
-}
-
-Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
-{
-  Node_ptr p_walk = list->first;
-  int position = 0;
-  Status status = Failure;
-  while (p_walk != NULL)
-  {
-    if (matcher(p_walk->element,element)) 
-    {
-      return remove_at(list, position);
-    }
-    p_walk = p_walk->next;
-    position++;
-  }
-  return NULL;
 }
 
 Status add_unique(List_ptr list, Element element, Matcher matcher)
