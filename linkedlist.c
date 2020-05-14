@@ -286,7 +286,7 @@ Element reduce(List_ptr list, Element element, Reducer reducer)
   Element init = NULL;
   while (p_walk != NULL)
   {
-    init = reducer(p_walk->element, init);
+    init = reducer(init, p_walk->element);
     p_walk = p_walk->next;
   }
   return init;
