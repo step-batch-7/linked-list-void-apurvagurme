@@ -33,7 +33,7 @@ int main()
   add_to_list(list, &number_2);
   add_to_list(list, &number_3);
   display_list(list, &display_int);
-  insert_at(list, &number_1, 2);
+  remove_at(list, 2);
   display_list(list, &display_int);
   return 0;
 }

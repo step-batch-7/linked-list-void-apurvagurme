@@ -94,19 +94,10 @@ Element remove_from_end(List_ptr list)
   return prev_curr->current->element;
 }
 
-Status is_valid_position(int position, int count)
-{
-  if (position > count || position < 0)
-  {
-    return Failure;
-  }
-  return Success;
-}
-
 Status insert_at(List_ptr list, Element element, int position)
 { 
-  int valid = is_valid_position(position, list->length);
-  if (!valid) return Failure;  
+  int is_valid_position = position > list->length || position < 0 ? Failure : Success;
+  if (!is_valid_position) return Failure;  
   if (position == 0)
   {
     return add_to_start(list, element); 
@@ -135,9 +126,9 @@ Status insert_at(List_ptr list, Element element, int position)
 
 Element remove_at(List_ptr list, int position)
 {
-  int valid = is_valid_position(position, list->length - 1);
-  if (!valid) return NULL;
-  if (position == 0)
+  int is_valid_position = position > list->length || position < 0 ? Failure : Success;
+  if (!is_valid_position) return NULL;
+  if (position == 0 || (position == 0 && list->length == 1))
   {
     return remove_from_start(list);
   }
@@ -156,11 +147,6 @@ Element remove_at(List_ptr list, int position)
   Element removed_element = p_walk->next->element;
   p_walk->next = next;
   list->length--;
-  if (list->length == 0)
-  {
-    list->first = NULL;
-    list->last = NULL;
-  }
   return removed_element;
 }
 
