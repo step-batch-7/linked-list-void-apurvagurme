@@ -41,13 +41,12 @@ typedef struct prev_curr
   Node_ptr current;
 } Prev_curr_pair;
 
-typedef Prev_curr_pair *Prev_curr_ptr;
-
 typedef Element (*Mapper)(Element);
 typedef Status (*Predicate)(Element);
 typedef Element (*Reducer)(Element, Element);
 typedef void (*ElementProcessor)(Element);
 typedef Status (*Matcher)(Element, Element);
+typedef void (*Display_data)(Element);
 
 Node_ptr create_node(Element);
 List_ptr create_list(void);

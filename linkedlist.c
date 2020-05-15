@@ -3,6 +3,10 @@
 Node_ptr create_node(Element element)
 {
   Node_ptr new_node = malloc(sizeof(Node));
+  if (new_node == NULL)
+  {
+    return new_node;
+  }
   new_node->element = element;
   new_node->next = NULL;
   return new_node;
@@ -11,6 +15,10 @@ Node_ptr create_node(Element element)
 List_ptr create_list(void)
 {
   List_ptr list = malloc(sizeof(LinkedList));
+  if (list == NULL)
+  {
+    return list;
+  }
   list->first = NULL;
   list->last = NULL;
   list->length = 0;
@@ -21,7 +29,6 @@ Status add_to_list(List_ptr list, Element element)
 {
   Node_ptr new_node = create_node(element);
   if(new_node == NULL) return Failure;
-
   if (list->first == NULL)
   {
     list->first = new_node;
@@ -39,7 +46,6 @@ Status add_to_start(List_ptr list, Element element)
 {
   Node_ptr new_node = create_node(element);
   if(new_node == NULL) return Failure;
-
   if(list->first == NULL)
   {
     list->last = new_node;
@@ -61,7 +67,7 @@ Element remove_from_start(List_ptr list)
     list->length = 0;
     return element;
   }
-  Node *first_node = list->first;
+  Node_ptr first_node = list->first;
   list->first = first_node->next;
   list->length--;
   return first_node->element;
@@ -74,21 +80,19 @@ Element remove_from_end(List_ptr list)
   {
     return remove_from_start(list);
   }
-
-  Prev_curr_ptr prev_curr = malloc(sizeof(Prev_curr_ptr));
-  prev_curr->current = list->first->next;
-  prev_curr->previous = list->first;
-  
-  while (prev_curr->current->next != NULL)
+  Prev_curr_pair prev_curr;
+  prev_curr.current = list->first->next;
+  prev_curr.previous = list->first;
+  while (prev_curr.current->next != NULL)
   {
-    prev_curr->previous = prev_curr->current;
-    prev_curr->current = prev_curr->current->next;
+    prev_curr.previous = prev_curr.current;
+    prev_curr.current = prev_curr.current->next;
   }
 
-  prev_curr->previous->next = NULL; 
-  list->last = prev_curr->previous;
+  prev_curr.previous->next = NULL; 
+  list->last = prev_curr.previous;
   list->length--;
-  return prev_curr->current->element;
+  return prev_curr.current->element;
 }
 
 Status is_valid_position(int position, int count)
@@ -117,18 +121,18 @@ Status insert_at(List_ptr list, Element element, int position)
   Node_ptr new_node = create_node(element);
   if(new_node == NULL) return Failure;
 
-  Prev_curr_ptr prev_curr = malloc(sizeof(Prev_curr_ptr));
-  prev_curr->current = list->first;
-  prev_curr->previous = list->first;
+  Prev_curr_pair prev_curr;
+  prev_curr.current = list->first;
+  prev_curr.previous = list->first;
   int count = 0;  
   while (count < position)
   {
-    prev_curr->previous = prev_curr->current;
-    prev_curr->current = prev_curr->current->next;
+    prev_curr.previous = prev_curr.current;
+    prev_curr.current = prev_curr.current->next;
     count++;
   }
-  new_node->next = prev_curr->current;
-  prev_curr->previous->next = new_node;
+  new_node->next = prev_curr.current;
+  prev_curr.previous->next = new_node;
   list->length++;
   return Success;
 }
