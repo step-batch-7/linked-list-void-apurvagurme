@@ -80,19 +80,21 @@ Element remove_from_end(List_ptr list)
   {
     return remove_from_start(list);
   }
-  Prev_curr_pair prev_curr;
-  prev_curr.current = list->first->next;
-  prev_curr.previous = list->first;
-  while (prev_curr.current->next != NULL)
+
+  Prev_curr_ptr prev_curr = malloc(sizeof(Prev_curr_ptr));
+  prev_curr->current = list->first->next;
+  prev_curr->previous = list->first;
+  
+  while (prev_curr->current->next != NULL)
   {
-    prev_curr.previous = prev_curr.current;
-    prev_curr.current = prev_curr.current->next;
+    prev_curr->previous = prev_curr->current;
+    prev_curr->current = prev_curr->current->next;
   }
 
-  prev_curr.previous->next = NULL; 
-  list->last = prev_curr.previous;
+  prev_curr->previous->next = NULL; 
+  list->last = prev_curr->previous;
   list->length--;
-  return prev_curr.current->element;
+  return prev_curr->current->element;
 }
 
 Status is_valid_position(int position, int count)
