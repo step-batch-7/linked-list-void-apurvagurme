@@ -194,8 +194,8 @@ List_ptr remove_all_occurrences(List_ptr list, Element element, Matcher matcher)
   {
     if (matcher(p_walk->element, element))
     {
-      remove_at(list, position);
-      add_to_list(removed_elements_list, element);
+      Element removed_element = remove_at(list, position);
+      add_to_list(removed_elements_list, removed_element);
       position--;
     }
     p_walk = p_walk->next;
