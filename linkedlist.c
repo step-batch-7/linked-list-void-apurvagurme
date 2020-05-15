@@ -85,16 +85,10 @@ Element remove_from_end(List_ptr list)
     prev_curr->current = prev_curr->current->next;
   }
 
-  Element removed_element = prev_curr->current->element;
   prev_curr->previous->next = NULL; 
   list->last = prev_curr->previous;
   list->length--;
-  if (list->length == 0)
-  {
-    list->first = NULL;
-    list->last = NULL;
-  }
-  return removed_element;
+  return prev_curr->current->element;
 }
 
 Status is_valid_position(int position, int count)
