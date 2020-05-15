@@ -28,6 +28,10 @@ List_ptr create_list(void)
 Status add_to_list(List_ptr list, Element element)
 {
   Node_ptr new_node = create_node(element);
+  if (new_node == NULL)
+  {
+    return Failure;
+  }
   if(new_node == NULL) return Failure;
   if (list->first == NULL)
   {
@@ -80,17 +84,14 @@ Element remove_from_end(List_ptr list)
   {
     return remove_from_start(list);
   }
-
   Prev_curr_ptr prev_curr = malloc(sizeof(Prev_curr_ptr));
   prev_curr->current = list->first->next;
   prev_curr->previous = list->first;
-  
   while (prev_curr->current->next != NULL)
   {
     prev_curr->previous = prev_curr->current;
     prev_curr->current = prev_curr->current->next;
   }
-
   prev_curr->previous->next = NULL; 
   list->last = prev_curr->previous;
   list->length--;
@@ -147,12 +148,10 @@ Element remove_at(List_ptr list, int position)
   {
     return remove_from_start(list);
   }
-
   if (position == list->length - 1)
   {
     return remove_from_end(list);
   }
-  
   Node_ptr p_walk = list->first;
   int count = 0;
   while (count < position - 1)
@@ -160,7 +159,6 @@ Element remove_at(List_ptr list, int position)
     p_walk = p_walk->next;
     count++;
   }
-
   Node_ptr next = p_walk->next->next;
   Element removed_element = p_walk->next->element;
   p_walk->next = next;

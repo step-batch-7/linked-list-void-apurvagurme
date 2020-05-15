@@ -41,6 +41,8 @@ typedef struct prev_curr
   Node_ptr current;
 } Prev_curr_pair;
 
+typedef Prev_curr_pair *Prev_curr_ptr;
+
 typedef Element (*Mapper)(Element);
 typedef Status (*Predicate)(Element);
 typedef Element (*Reducer)(Element, Element);
