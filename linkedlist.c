@@ -79,7 +79,7 @@ Element remove_from_end(List_ptr list)
   prev_curr->current = list->first->next;
   prev_curr->previous = list->first;
   
-  while (prev_curr->current != NULL)
+  while (prev_curr->current->next != NULL)
   {
     prev_curr->previous = prev_curr->current;
     prev_curr->current = prev_curr->current->next;
