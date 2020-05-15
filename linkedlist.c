@@ -74,16 +74,15 @@ Element remove_from_end(List_ptr list)
   {
     return remove_from_start(list);
   }
-  Node_ptr p_walk = list->first;
+
   Prev_curr_ptr prev_curr = malloc(sizeof(Prev_curr_ptr));
-  prev_curr->current = list->first;
+  prev_curr->current = list->first->next;
   prev_curr->previous = list->first;
   
-  while (p_walk != NULL)
+  while (prev_curr->current != NULL)
   {
     prev_curr->previous = prev_curr->current;
     prev_curr->current = prev_curr->current->next;
-    p_walk = p_walk->next;
   }
 
   Element removed_element = prev_curr->current->element;
