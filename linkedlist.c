@@ -180,7 +180,7 @@ Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
   Element removed_element = NULL;
   while (p_walk != NULL)
   {
-    if (matcher(p_walk->element,element) == Success) 
+    if (matcher(p_walk->element,element)) 
     {
       removed_element = remove_at(list, position);
       return removed_element;
@@ -198,7 +198,7 @@ List_ptr remove_all_occurrences(List_ptr list, Element element, Matcher matcher)
   List_ptr removed_elements_list = create_list();
   while (p_walk != NULL)
   {
-    if (matcher(p_walk->element, element) == Success)
+    if (matcher(p_walk->element, element))
     {
       remove_at(list, position);
       add_to_list(removed_elements_list, element);
@@ -268,7 +268,7 @@ List_ptr filter(List_ptr list, Predicate predicate)
   while (p_walk != NULL)
   {
     Status status = predicate(p_walk->element);
-    if (status == Success)
+    if (status)
     {
       add_to_list(filtered_list, p_walk->element);    
     }
