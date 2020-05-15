@@ -106,8 +106,7 @@ Status is_valid_position(int position, int count)
 Status insert_at(List_ptr list, Element element, int position)
 { 
   int valid = is_valid_position(position, list->length);
-  if (!valid) return Failure;
-  
+  if (!valid) return Failure;  
   if (position == 0)
   {
     return add_to_start(list, element); 
@@ -116,10 +115,8 @@ Status insert_at(List_ptr list, Element element, int position)
   {
     return add_to_list(list, element);
   }
-  
   Node_ptr new_node = create_node(element);
   if(new_node == NULL) return Failure;
-
   Prev_curr_pair prev_curr;
   prev_curr.current = list->first;
   prev_curr.previous = list->first;
@@ -190,6 +187,7 @@ List_ptr remove_all_occurrences(List_ptr list, Element element, Matcher matcher)
   Node_ptr p_walk = list->first;
   int position = 0;
   List_ptr removed_elements_list = create_list();
+  if (removed_elements_list == NULL) return NULL;
   while (p_walk != NULL)
   {
     if (matcher(p_walk->element, element))
@@ -207,6 +205,7 @@ List_ptr remove_all_occurrences(List_ptr list, Element element, Matcher matcher)
 Status add_unique(List_ptr list, Element element, Matcher matcher)
 {
   Node_ptr new_node = create_node(element);
+  if (new_node == NULL) return Failure;
   Node_ptr p_walk = list->first;
   if (list->first == NULL)
   {
@@ -232,6 +231,7 @@ Status add_unique(List_ptr list, Element element, Matcher matcher)
 List_ptr reverse(List_ptr list)
 {
   List_ptr reverse_list = create_list();
+  if (reverse_list == NULL) return NULL;
   if(list->length == 0) return reverse_list;
   Node_ptr p_walk = list->first;
   while (p_walk != NULL)
@@ -245,6 +245,7 @@ List_ptr reverse(List_ptr list)
 List_ptr map(List_ptr list, Mapper mapper)
 {
   List_ptr mapped_list = create_list();
+  if (mapped_list == NULL) return NULL;
   Node_ptr p_walk = list->first;
   while (p_walk != NULL)
   {
@@ -258,6 +259,7 @@ List_ptr map(List_ptr list, Mapper mapper)
 List_ptr filter(List_ptr list, Predicate predicate)
 {
   List_ptr filtered_list = create_list();
+  if (filtered_list == NULL) return NULL;
   Node_ptr p_walk = list->first;
   while (p_walk != NULL)
   {
